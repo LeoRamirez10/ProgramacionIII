@@ -1,12 +1,17 @@
 package com.leo.Control;
 
 import java.io.IOException;
+import java.util.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.leo.DAO.HistorialDao;
 import com.leo.DAO.UsuarioDao;
+import com.leo.model.TbHistorial;
 import com.leo.model.TbUsuariop;
 
 /**
@@ -40,6 +45,19 @@ public class ServeletUser extends HttpServlet {
 		
 		String usu = request.getParameter("Usuario");
 		String contra = request.getParameter("Contra");
+		String cerrarSesion = request.getParameter("btnCerrar");
+		
+		if (cerrarSesion!=null) {
+			
+			if(cerrarSesion.equals("CERRAR")) {
+		HttpSession cerrarSessiones = (HttpSession) request.getSession();		
+		cerrarSessiones.invalidate();  
+		
+			response.sendRedirect("index.jsp");
+			}
+			
+			
+		}else {
 		
 		
 		TbUsuariop usuario =  new TbUsuariop();
@@ -51,15 +69,28 @@ public class ServeletUser extends HttpServlet {
 	int verificarusuario = usuDao.ingresoUsuario(usuario).size();
 		
 	if (verificarusuario==1) {
+		TbHistorial histo = new TbHistorial();
+		HistorialDao histodao = new HistorialDao();
+		Date fecha = new Date();
 		
-		System.out.println("Entraste");
+		histo.setFecha(fecha);
+		usuario.setIdUsuarios(usuario.getIdUsuarios());
+		histo.setTbUsuariop(usuario);
+		histodao.agregarDatosHistorial(histo);
+		
+		
+		
+		HttpSession seccion = request.getSession(true);
+		seccion.setAttribute("Usuario", usu);
+		
+		response.sendRedirect("Principal.jsp");
 		
 	}else {
 		
 		System.out.println("Error");
 	}
-	
-	response.sendRedirect("index.jsp");
+		}
+	//response.sendRedirect("index.jsp");
 	
 	}
 

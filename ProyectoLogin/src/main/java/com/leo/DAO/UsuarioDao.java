@@ -26,6 +26,11 @@ public List<TbUsuariop> ingresoUsuario(TbUsuariop usu){
 		
 		em.getTransaction().commit();
 		
+		for (TbUsuariop datosids:Usuario) {
+			
+			usu.setIdUsuarios(datosids.getIdUsuarios());
+			
+		}
 		
 	} catch (Exception e) {
 		// TODO: handle exception

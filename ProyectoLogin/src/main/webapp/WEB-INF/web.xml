@@ -10,8 +10,18 @@
   	<description></description>
   	<servlet-class>com.leo.Control.ServeletUser</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>ServeletHistorialUsuario</servlet-name>
+  	<display-name>ServeletHistorialUsuario</display-name>
+  	<description></description>
+  	<servlet-class>com.leo.Control.ServeletHistorialUsuario</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>ServeletUser</servlet-name>
   	<url-pattern>/ServeletUser</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ServeletHistorialUsuario</servlet-name>
+  	<url-pattern>/ServeletHistorialUsuario</url-pattern>
   </servlet-mapping>
 </web-app>
